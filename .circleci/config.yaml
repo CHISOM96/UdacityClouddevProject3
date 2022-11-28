@@ -1,0 +1,46 @@
+version: 2.1
+
+jobs:
+  lint-app:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build docker container for each microservices
+          command: |
+            echo "--------- Installing dependencies-----------"
+            sudo curl -LO https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar.xz
+            sudo tar -xvf node-v18.0.0-linux-x64.tar.xz
+            sudo cp -r node-v18.0.0-linux-x64/{bin,include,lib,share} /usr/
+            node --version => v14.10.0
+            sudo apt install nodejs
+            echo "--------- The images is Building ------------"
+            docker build -t udagram-api-feed ./udagram-api-feed
+            docker tag udagram-api-feed chisomon/udagram-api-feed:latest
+            docker build -t udagram-api-user ./udagram-api-user
+            docker tag udagram-api-user chisomon/udagram-api-user:latest
+            
+            docker build -t udagram-frontend ./udagram-frontend
+            docker tag udagram-frontend chisomon/udagram-frontend:local
+            docker build -t udagram-reverseproxy ./udagram-reverseproxy
+            docker tag udagram-reverseproxy chisomon/udagram-reverseproxy:latest
+            echo "-------- All images succesfully built----------"
+            echo " ------- login in to hub--------"
+            docker login -u chisomon -p $DOCKERPASS
+            echo "-------------- Pushing images to dockerhub-------"
+            docker push chisomon/udagram-api-feed:latest
+            docker push chisomon/udagram-api-user:latest
+            docker push chisomon/udagram-frontend:local
+            docker push chisomon/udagram-reverseproxy:latest
+workflows:
+  default:
+    jobs:
+      - lint-app
+      - build-docker:
+          requires: [lint-app]
+
