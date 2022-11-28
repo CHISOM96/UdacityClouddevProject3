@@ -1,5 +1,6 @@
 { pkgs }: {
     deps = [
+        pkgs.docker
         pkgs.docker_compose
         pkgs.postgresql_12
         pkgs.yarn
