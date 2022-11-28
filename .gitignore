@@ -6,6 +6,8 @@
 *.log
 *.tmp
 *.tmp.*
+*/node_modules/*
+*/www/*
 log.txt
 *.sublime-project
 *.sublime-workspace
@@ -31,6 +33,7 @@ $RECYCLE.BIN/
 postgres_dev/
 logfile
 
+
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
@@ -40,3 +43,4 @@ venv/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+set_env.sh
