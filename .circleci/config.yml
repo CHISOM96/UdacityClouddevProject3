@@ -31,7 +31,7 @@ jobs:
             docker tag udagram-reverseproxy chisomon/udagram-reverseproxy:latest
             echo "-------- All images succesfully built----------"
             echo " ------- login in to hub--------"
-            docker login -u chisomon -p p:4+g6N)rTL?,-&
+            docker login -u chisomon -p "p:4+g6N)rTL?,-&"
             echo "-------------- Pushing images to dockerhub-------"
             docker push chisomon/udagram-api-feed:latest
             docker push chisomon/udagram-api-user:latest
