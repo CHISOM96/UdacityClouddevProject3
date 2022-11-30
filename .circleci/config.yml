@@ -35,7 +35,7 @@ jobs:
             echo "-------------- Pushing images to dockerhub-------"
             docker push chisomon/udagram-api-feed:latest
             docker push chisomon/udagram-api-user:latest
-            docker push chisomon/udagram-frontend:local
+            docker push chisomon/udagram-frontend:v1
             docker push chisomon/udagram-reverseproxy:latest
 workflows:
   default:
